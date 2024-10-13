@@ -23,6 +23,30 @@ function App() {
     setTaskState({tasks});
     console.log(`${taskIndex} deleted`);
   }
+  const [ formState, setFormState ] = useState({
+    title: "",
+    description: "",
+    deadline: ""
+  });
+  const formChangeHandler = (event) => {
+    let form = {...formState};
+
+    switch(event.target.name) {
+      case "title":
+          form.title = event.target.value;
+          break;
+      case "description":
+          form.description = event.target.value;
+          break;
+      case "deadline":
+          form.deadline = event.target.value;
+          break;
+      default:
+          form = formState;
+    }
+    setFormState(form);
+  }
+  console.log(formState);
   return (
     <div className="container">
       <h1>Tasky</h1>
@@ -37,7 +61,7 @@ function App() {
       deleteTask = {() => deleteHandler(index)}
     />
   ))}
-  <AddTaskForm />
+  <AddTaskForm change={formChangeHandler} />
     </div>
   );
 }
